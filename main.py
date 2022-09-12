@@ -41,17 +41,22 @@ operacoesContaCorrente={
     '1':'Informações da Conta',
     '2':'Realizar saque',
     '3':'Realizar depósito',
-    '-':'Voltar ao menu'
+    '-':'Voltar a escolha de conta'
 }
-operacoesContaCorrente=list(operacoesContaCorrente.keys())
+operacoesContaCorrenteChave=list(operacoesContaCorrente.keys())
 
 #====Início do programa
 print(f'{separador:^50}')
 print(" Bem vindo! Este programa busca repressentar operações dentro de uma conta corrente bancária. ")
 print(f'{separador:^50}')
 
-NomeBanco=str.strip( input("Primeiro, Digite o nome do banco: ") ) 
-B1=Banco(NomeBanco.upper())
+
+#=============================
+B1=Banco('BANCO 123')
+B1.InserirConta(1234,'Haniel')
+#========================
+#NomeBanco=str.strip( input("Primeiro, Digite o nome do banco: ") ) 
+#B1=Banco(NomeBanco.upper())
 
 while True: #O programa em si opera dentro deste while
     print(separador)
@@ -171,7 +176,7 @@ while True: #O programa em si opera dentro deste while
                     if numeroContaCorrente.upper()=='C':
                         break
                     
-                    numeroContaCorrente=B1.ChecarConta(numeroContaCorrente)
+                    numeroContaCorrente=B1.ChecarConta(int(numeroContaCorrente))
                     
                     print(f"Bem vindo a Conta Corrente de {B1.Contas[numeroContaCorrente].nomeTitular}")
                     while True:
@@ -183,7 +188,7 @@ while True: #O programa em si opera dentro deste while
                     
                         time.sleep(2)
                         ContaCorrenteEscolha=input('Digite o índice de uma das operações \n')
-                        confirmarEscolha=str.upper(input(f" opção: |{ContaCorrenteEscolha}| {operacoesBanco[ContaCorrenteEscolha]} \n confirma a escolha? (S/N) "))
+                        confirmarEscolha=str.upper(input(f" opção: |{ContaCorrenteEscolha}| {operacoesContaCorrente[ContaCorrenteEscolha]} \n confirma a escolha? (S/N) "))
                         
                         if confirmarEscolha !='S' and confirmarEscolha!='N':
                             raise Exception('Resposta diferente de S ou N')
@@ -200,8 +205,8 @@ while True: #O programa em si opera dentro deste while
                             print(f'Saque de {saqueValor:.2f} efetivado com sucesso!')
                         
                         elif ContaCorrenteEscolha == operacoesChaveBanco[2]:#Realizar Deposito
-                            depositoValor=float(input('Digite o valor desejado para o saque: '))
-                            B1.Depositar(numeroContaCorrente,saqueValor)
+                            depositoValor=float(input('Digite o valor do Depósito: '))
+                            B1.Depositar(numeroContaCorrente,depositoValor)
                             print(f'Deposito de {depositoValor:.2f} efetivado com sucesso!')
                         
                         elif ContaCorrenteEscolha == operacoesChaveBanco[len(operacoesChaveBanco)-1]:#Operação de saída

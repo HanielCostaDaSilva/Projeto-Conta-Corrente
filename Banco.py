@@ -10,6 +10,7 @@ class OperacaoInvalidaException(Exception):
 class Banco:
     __Contas={}
     __saldoBanco=0
+    __ContasChaves= __Contas.keys()
     
     def __init__(self,nome) -> None:
         self.__nomeBanco=nome
@@ -27,14 +28,14 @@ class Banco:
         return self.__saldoBanco
     
     def InserirConta(self, numero:int,nomeTitular:str):
-        if numero not in self.__Contas.keys():
+        if numero not in self.__ContasChaves:
             self.__Contas[numero]=ContaCorrente(numero,nomeTitular)
         else:
             raise OperacaoInvalidaException(f"Número de conta: {numero} já existe! Por favor, insira um novo número")
     
     def ChecarConta(self, numero:int)->int:
         try:
-            assert numero in self.__Contas.keys()
+            assert numero in self.__ContasChaves
             return numero
         except AssertionError:
             raise OperacaoInvalidaException("Número não encontrado! Por favor, insira um novo número")
